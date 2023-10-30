@@ -1,15 +1,19 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "username": "tiepem",
-        "password": "123"
-      },
-      {
-        "id": 2,
-        "username": "phuonganh",
-        "password": "anh"
-      }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": 1,
+      "username": "tiepem",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "username": "phuonganh",
+      "password": "anh"
+    },
+    {
+      "username": "tuyet",
+      "password": "123",
+      "id": 3
+    }
+  ]
+}
