@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
         padding: 16,
         marginTop: 16,
     },
-    viewbutton:{
-        marginTop: 440,
+    viewbutton: {
+        marginTop: 300,
         alignItems: 'center',
         justifyContent: 'center'
     },

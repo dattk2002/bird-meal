@@ -102,6 +102,12 @@ function Register({ navigation }) {
                     <Pressable style={styles.button} onPress={() => handleRegister()}>
                         <Text style={styles.buttonText}>Đăng Ký</Text>
                     </Pressable>
+                    <View style={styles.registerText}>
+                        <Text style={styles.registerPrompt}>Bạn đã có tài khoản? </Text>
+                        <Pressable onPress={() => navigation.navigate('Login')}>
+                            <Text style={styles.registerLink}>Đăng Nhập</Text>
+                        </Pressable>
+                    </View>
                 </View>
             </ImageBackground>
         </View>
@@ -160,10 +166,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     registerPrompt: {
-        color: 'white',
+        color: 'black',
     },
     registerLink: {
         color: 'blue',
+        textDecorationLine: 'underline'
     },
     textBack: {
         fontSize: 20,
