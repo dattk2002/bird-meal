@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         marginTop: 16,
     },
     viewbutton:{
-        marginTop: 440,
+        marginTop: 300,
         alignItems: 'center',
         justifyContent: 'center'
     },

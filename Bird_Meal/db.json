@@ -15,5 +15,118 @@
       "password": "123",
       "id": 3
     }
+  ],
+  "foods": [
+    {
+      "id": 1,
+      "name": "Hạt hướng dương",
+      "category": "Hạt",
+      "image": "https://vn-live-02.slatic.net/p/21c626eba9a8ecd18a1e98691c5110e1.jpg",
+      "detail": " Hạt hướng dương thường có vỏ và hạt trong. Chúng có hương vị dễ chịu và giá trị dinh dưỡng cao.",
+      "suitableFor": [
+        {
+          "birdName": "Sẻ đậu",
+          "birdImage": "https://cdn.pixabay.com/photo/2019/07/23/00/55/sparrow-4356373_1280.png"
+        },
+        {
+          "birdName": "Cú Mèo",
+          "birdImage": "https://img.meta.com.vn/Data/image/2022/04/20/chim-cu-meo-2.jpg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Hạt lúa mạch",
+      "category": "Hạt",
+      "image": "https://vn-live-01.slatic.net/p/de1a75a4d506676dfeb0fe698e33193a.jpg",
+      "detail": " Hạt lúa mạch nhỏ, tròn và màu trắng hoặc màu đỏ tùy loại.",
+      "suitableFor": [
+        {
+          "birdName": "Sẻ đậu",
+          "birdImage": "https://cdn.pixabay.com/photo/2019/07/23/00/55/sparrow-4356373_1280.png"
+        },
+        {
+          "birdName": "Gà cỏ",
+          "birdImage": "https://traigiongthuha.com/uploads/news/size610/news1/8/news_775.jpg"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Hạt lanh",
+      "category": "Hạt",
+      "image": "https://salt.tikicdn.com/cache/280x280/ts/product/02/ba/e9/3ec842f8b086ed2fa9ce7bab6285759c.jpg",
+      "detail": "Hạt lanh có hình dáng dẹp, bóng, và có giá trị dinh dưỡng.",
+      "suitableFor": [
+        {
+          "birdName": "Linh Cảm",
+          "birdImage": "https://png.pngtree.com/illustration/20190226/ourlarge/pngtree-illustration-pond-little-bird-landscape-image_6967.jpg"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Thịt tươi",
+      "category": "Tươi",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Fresh_meat.jpg/300px-Fresh_meat.jpg",
+      "detail": "Thịt tươi là một nguồn thức ăn giàu protein.",
+      "suitableFor": [
+        {
+          "birdName": "Đại Bàng",
+          "birdImage": "https://dkrs.com.vn/wp-content/uploads/2015/04/cau-chuyen-cua-dai-bang.jpg"
+        },
+        {
+          "birdName": "Chim Ưng",
+          "birdImage": "https://sohanews.sohacdn.com/thumb_w/660/2017/photo-1-1489043658941.jpg"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Sâu gạo",
+      "category": "Côn trùng",
+      "image": "https://vtv1.mediacdn.vn/2021/6/3/fab030f49e32297543c3534e2b5ee458-16227069387001885851315.jpg",
+      "detail": ": Côn trùng sống là nguồn thức ăn tự nhiên cho nhiều loài chim và được bắt từ môi trường hoặc mua sẵn từ cửa hàng thú cưng",
+      "suitableFor": [
+        {
+          "birdName": "Sơn ca",
+          "birdImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Alauda_arvensis_2.jpg/280px-Alauda_arvensis_2.jpg"
+        },
+        {
+          "birdName": "Cú Mèo",
+          "birdImage": "https://img.meta.com.vn/Data/image/2022/04/20/chim-cu-meo-2.jpg"
+        },
+        {
+          "birdName": "Cò trắng",
+          "birdImage": "https://birdwatchingvietnam.net/images/bird/479/chinese-egret-721.jpg"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Bột bánh ",
+      "category": "Bột",
+      "image": "https://meocun.com/wp-content/uploads/cam_trung_ba_vi_500g_cho_chim.jpg",
+      "detail": "Bột bánh là bột từ bánh mỳ sấy khô hoặc bột bánh mỳ.",
+      "suitableFor": [
+        {
+          "birdName": "Bồ câu",
+          "birdImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Feral_pigeon_in_Locarno.jpg/800px-Feral_pigeon_in_Locarno.jpg"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Trứng ",
+      "category": "Trứng",
+      "image": "https://vcdn-vnexpress.vnecdn.net/2015/02/14/eggs-03-4600-1423905018.jpg",
+      "detail": "Trứng là một nguồn thức ăn giàu protein và dầu, thường được cung cấp sáng tinh khuyết cho các loài chim.",
+      "suitableFor": [
+        {
+          "birdName": "Cú Mèo",
+          "birdImage": "https://img.meta.com.vn/Data/image/2022/04/20/chim-cu-meo-2.jpg"
+        }
+      ]
+    }
   ]
 }

@@ -15,7 +15,7 @@ function Login({ navigation }) {
       return;
     }
     try {
-      const response = await axios.get('http://10.0.121.227:3000/users', {
+      const response = await axios.get('http://10.0.125.99:3000/users', {
         params: {
           username,
           password,
@@ -24,7 +24,7 @@ function Login({ navigation }) {
 
       const user = response.data[0];
       if (user) {
-        navigation.navigate('Home');
+        navigation.navigate('HomePage');
       } else {
         Alert.alert('Lỗi', 'Tên người dùng hoặc mật khẩu không đúng.');
       }
