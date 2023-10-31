@@ -130,14 +130,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   registerPrompt: {
-    color: 'white',
+    color: 'black',
   },
   registerLink: {
     color: 'blue',
+    textDecorationLine: 'underline'
   },
   textBack: {
     fontSize: 20,
-    color:'white'
+    color: 'white'
   },
   positionBack: {
     marginTop: 60,
