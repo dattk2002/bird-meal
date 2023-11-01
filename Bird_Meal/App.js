@@ -13,6 +13,7 @@ const Tab = createBottomTabNavigator();
 import { MaterialIcons } from "@expo/vector-icons";
 import FoodDetail from "./components/FoodDetail";
 import AboutUsScreen from "./components/About";
+import AddScreen from "./components/AddScreen";
 
 function Home() {
   return (
@@ -60,6 +61,7 @@ export default function App() {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="AdminPage" component={AdminPage} options={{title: "Admin Screen"}}/>
         <Stack.Screen name="FoodDetail" component={FoodDetail} />
+        <Stack.Screen name="AddScreen" component={AddScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

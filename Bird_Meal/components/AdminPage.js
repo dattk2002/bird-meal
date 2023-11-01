@@ -8,13 +8,14 @@ import {
   Button,
   TextInput,
   Pressable,
-  Alert
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+import AddScreen from './AddScreen';
 
 const RedHeartIcon = () => {
   return <FontAwesome name="heart" size={35} color="red" />;
@@ -23,8 +24,14 @@ const RedHeartIcon = () => {
 const GrayHeartIcon = () => {
   return <FontAwesome name="heart" size={24} color="gray" />;
 };
+const DeleteIcon = () => {
+  return <FontAwesome name="trash" size={24} color="gray" />;
+};
+const AddIcon = () => {
+  return <FontAwesome name="plus" size={48} color="blue" />;
+};
 
-export { RedHeartIcon, GrayHeartIcon };
+export { RedHeartIcon, GrayHeartIcon, DeleteIcon, AddIcon };
 
 function AdminPage({ navigation }) {
   const [foodData, setFoodData] = useState([]);
@@ -32,7 +39,7 @@ function AdminPage({ navigation }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedButton, setSelectedButton] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(''); // Thêm trạng thái để lưu giá trị của thanh tìm kiếm
+  const [searchQuery, setSearchQuery] = useState(""); // Thêm trạng thái để lưu giá trị của thanh tìm kiếm
   const [favorites, setFavorites] = useState([]);
 
   useFocusEffect(
@@ -53,7 +60,7 @@ function AdminPage({ navigation }) {
   );
 
   useEffect(() => {
-    fetchItems()
+    fetchItems();
   }, []);
 
   const fetchItems = () => {
@@ -71,21 +78,22 @@ function AdminPage({ navigation }) {
       .catch((error) => {
         console.error("Lỗi khi lấy dữ liệu:", error);
       });
-  }
+  };
+  
 
   const deleteItem = (id) => {
-    axios.delete(`http://192.168.20.149:3000/foods/${id}`)
-      .then(response => {
+    axios
+      .delete(`http://192.168.20.149:3000/foods/${id}`)
+      .then((response) => {
         // Handle successful deletion
-        console.log('Item deleted successfully id :', id);
+        console.log("Item deleted successfully id :", id);
         return fetchItems(); // Fetch updated list of items
       })
-      .catch(error => {
+      .catch((error) => {
         // Handle error
-        console.error('Error deleting item:', error);
+        console.error("Error deleting item:", error);
       });
   };
-
 
   const showConfirmDialog = (id) => {
     return Alert.alert(
@@ -105,6 +113,10 @@ function AdminPage({ navigation }) {
         },
       ]
     );
+  };
+
+  const addPopup = () => {
+    return Alert.alert();
   };
 
   useEffect(() => {
@@ -187,6 +199,11 @@ function AdminPage({ navigation }) {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
+      <Pressable onPress={() => navigation.navigate("AddScreen", { fetchItems })}>
+        <View style={styles.addButton}>
+          <AddIcon></AddIcon>
+        </View>
+      </Pressable>
     </View>
   );
 }
@@ -228,11 +245,16 @@ const styles = StyleSheet.create({
     right: 20,
   },
   deleteButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 10,
     right: 10,
     padding: 10,
     borderRadius: 5,
+  },
+  addButton: {
+    marginLeft: 350,
+    marginTop: 20,
+    marginBottom: 20,
   },
 });
 export default AdminPage;
