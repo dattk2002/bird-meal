@@ -1,48 +1,62 @@
-import React from 'react';
-import { Text, View, StyleSheet, Pressable, TextInput, Alert, ImageBackground } from 'react-native';
-import { useState } from 'react';
-import axios from 'axios';
+import React from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  TextInput,
+  Alert,
+  ImageBackground,
+} from "react-native";
+import { useState } from "react";
+import axios from "axios";
 
 function Login({ navigation }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState();
 
   const handleLogin = async () => {
     if (!username || !password) {
-      Alert.alert('Lỗi', 'Vui lòng điền đầy đủ thông tin đăng nhập.');
+      Alert.alert("Lỗi", "Vui lòng điền đầy đủ thông tin đăng nhập.");
       return;
     }
     try {
-      const response = await axios.get('http://10.0.125.99:3000/users', {
+      const response = await axios.get("http://192.168.20.149:3000/users", {
         params: {
           username,
           password,
+          role,
         },
       });
 
       const user = response.data[0];
       if (user) {
-        navigation.navigate('HomePage');
+        if (user.role === true) {
+          navigation.navigate("AdminPage");
+        } else {
+          navigation.navigate("HomePage");
+        }
       } else {
-        Alert.alert('Lỗi', 'Tên người dùng hoặc mật khẩu không đúng.');
+        Alert.alert("Lỗi", "Tên người dùng hoặc mật khẩu không đúng.");
       }
     } catch (error) {
-      console.error('Lỗi khi đăng nhập:', error);
+      console.error("Lỗi khi đăng nhập:", error);
     }
   };
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('../image/login.jpg')}
+        source={require("../image/login.jpg")}
         resizeMode="cover"
         style={styles.image}
       >
-        <Pressable style={styles.positionBack} onPress={() => navigation.goBack()}>
-          <Text style={styles.textBack}>
-            Back</Text>
+        <Pressable
+          style={styles.positionBack}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.textBack}>Back</Text>
         </Pressable>
         <View style={styles.viewlogin}>
           <Text style={styles.title}>Đăng nhập</Text>
@@ -68,7 +82,7 @@ function Login({ navigation }) {
           </Pressable>
           <View style={styles.registerText}>
             <Text style={styles.registerPrompt}>Chưa có tài khoản? </Text>
-            <Pressable onPress={() => navigation.navigate('Register')}>
+            <Pressable onPress={() => navigation.navigate("Register")}>
               <Text style={styles.registerLink}>Đăng ký</Text>
             </Pressable>
           </View>
@@ -87,63 +101,63 @@ const styles = StyleSheet.create({
   },
   viewlogin: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   input: {
-    width: '80%',
+    width: "80%",
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 10,
     padding: 10,
     borderRadius: 5,
   },
   button: {
-    backgroundColor: 'blue',
-    width: '80%',
+    backgroundColor: "blue",
+    width: "80%",
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
     borderRadius: 5,
     marginTop: 10,
   },
   goBackButton: {
-    backgroundColor: 'gray',
-    width: '80%',
+    backgroundColor: "gray",
+    width: "80%",
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
     borderRadius: 5,
     marginTop: 10,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   registerText: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 10,
   },
   registerPrompt: {
-    color: 'black',
+    color: "black",
   },
   registerLink: {
-    color: 'blue',
-    textDecorationLine: 'underline'
+    color: "blue",
+    textDecorationLine: "underline",
   },
   textBack: {
     fontSize: 20,
-    color: 'white'
+    color: "white",
   },
   positionBack: {
     marginTop: 60,
     marginLeft: 30,
-  }
+  },
 });
 
 export default Login;

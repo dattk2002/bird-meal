@@ -3,22 +3,38 @@
     {
       "id": 1,
       "username": "tiepem",
-      "password": "123"
+      "password": "123",
+      "role": false
     },
     {
       "id": 2,
       "username": "phuonganh",
-      "password": "anh"
+      "password": "anh",
+      "role": false
     },
     {
       "username": "tuyet",
       "password": "123",
-      "id": 3
+      "id": 3,
+      "role": false
     },
     {
       "username": "pttaer",
       "password": "123",
-      "id": 4
+      "id": 4,
+      "role": false
+    },
+    {
+      "username": "kdat",
+      "password": "123",
+      "id": 5,
+      "role": false
+    },
+    {
+      "username": "admin",
+      "password": "123",
+      "id": 6,
+      "role": true
     }
   ],
   "foods": [
