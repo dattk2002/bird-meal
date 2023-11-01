@@ -29,7 +29,7 @@ function Register({ navigation }) {
         }
 
         try {
-            const response = await axios.post('http://10.0.125.99:3000/users', {
+            const response = await axios.post('http://10.86.18.137:3000/users', {
                 username,
                 password,
             });
@@ -47,7 +47,7 @@ function Register({ navigation }) {
     // Hàm kiểm tra username tồn tại
     const checkUsernameExists = async (username) => {
         try {
-            const response = await axios.get('http://10.0.125.99:3000/users', {
+            const response = await axios.get('http://10.86.18.137/users', {
                 params: {
                     username,
                 },

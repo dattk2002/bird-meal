@@ -7,6 +7,7 @@ import Register from './components/Register';
 import List from './components/List';
 import Favorite from './components/Favorite';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AdminPage from "./components/AdminPage";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -46,18 +47,23 @@ function Home() {
     </Tab.Navigator>
   );
 }
-
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Introduction' screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='Introduction' component={IntroductionScreen} />
-        <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='HomePage' component={Home} />
-        <Stack.Screen name='Register' component={Register} />
-        <Stack.Screen name='FoodDetail' component={FoodDetail}  />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Introduction"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="Introduction" component={IntroductionScreen} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="AdminPage" component={AdminPage} options={{title: "Admin Screen"}}/>
+          <Stack.Screen name='FoodDetail' component={FoodDetail}  />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 
@@ -69,7 +75,9 @@ const styles = StyleSheet.create({
   },
   color: {
     color: 'black'
-  }
+  },
+  text: {
+    fontSize: 25,
+    fontWeight: "500",
+  },
 });
-
-
