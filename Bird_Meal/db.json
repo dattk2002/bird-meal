@@ -3,27 +3,42 @@
     {
       "id": 1,
       "username": "tiepem",
-      "password": "123"
+      "password": "123",
+      "role": false
     },
     {
       "id": 2,
       "username": "phuonganh",
-      "password": "anh"
+      "password": "anh",
+      "role": false
     },
     {
       "username": "tuyet",
       "password": "123",
-      "id": 3
+      "id": 3,
+      "role": false
     },
     {
       "username": "pttaer",
       "password": "123",
-      "id": 4
+      "id": 4,
+      "role": false
+    },
+    {
+      "username": "kdat",
+      "password": "123",
+      "id": 5,
+      "role": false
+    },
+    {
+      "username": "admin",
+      "password": "123",
+      "id": 6,
+      "role": true
     }
   ],
   "foods": [
     {
-      "id": 1,
       "name": "Hạt hướng dương",
       "category": "Hạt",
       "image": "https://vn-live-02.slatic.net/p/21c626eba9a8ecd18a1e98691c5110e1.jpg",
@@ -37,7 +52,8 @@
           "birdName": "Cú Mèo",
           "birdImage": "https://img.meta.com.vn/Data/image/2022/04/20/chim-cu-meo-2.jpg"
         }
-      ]
+      ],
+      "id": 1
     },
     {
       "id": 2,

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -9,23 +8,34 @@ import {
   Button,
   TextInput,
   Pressable,
+  Alert,
 } from "react-native";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+import AddScreen from './AddScreen';
 
 const RedHeartIcon = () => {
   return <FontAwesome name="heart" size={35} color="red" />;
 };
-
 const GrayHeartIcon = () => {
   return <FontAwesome name="heart" size={24} color="gray" />;
 };
+const DeleteIcon = () => {
+  return <FontAwesome name="trash" size={24} color="gray" />;
+};
+const AddIcon = () => {
+  return <FontAwesome name="plus" size={48} color="blue" />;
+};
+const EditIcon = () => {
+  return <FontAwesome name="edit" size={36} color="blue" />;
+};
 
-export { RedHeartIcon, GrayHeartIcon };
+export { RedHeartIcon, GrayHeartIcon, DeleteIcon, AddIcon, EditIcon };
 
-function List({ navigation }) {
+function AdminPage({ navigation }) {
   const [foodData, setFoodData] = useState([]);
   const [filteredFoodData, setFilteredFoodData] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -51,27 +61,11 @@ function List({ navigation }) {
     }, [])
   );
 
-  // Add a milk tea to favorites
-  const addToFavorites = (milkTea) => {
-    const updatedFavorites = [...favorites, milkTea];
-    setFavorites(updatedFavorites);
-
-    // Save updated favorites to AsyncStorage
-    AsyncStorage.setItem("favorite", JSON.stringify(updatedFavorites));
-  };
-
-  // Remove a milk tea from favorites
-  const removeFromFavorites = (milkTea) => {
-    const updatedFavorites = favorites.filter(
-      (item) => item.name !== milkTea.name
-    );
-    setFavorites(updatedFavorites);
-
-    // Save updated favorites to AsyncStorage
-    AsyncStorage.setItem("favorite", JSON.stringify(updatedFavorites));
-  };
-
   useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = () => {
     axios
       .get("http://192.168.20.149:3000/foods")
       .then((response) => {
@@ -86,7 +80,42 @@ function List({ navigation }) {
       .catch((error) => {
         console.error("Lỗi khi lấy dữ liệu:", error);
       });
-  }, []);
+  };
+
+
+  const deleteItem = (id) => {
+    axios
+      .delete(`http://192.168.20.149:3000/foods/${id}`)
+      .then((response) => {
+        // Handle successful deletion
+        console.log("Item deleted successfully id :", id);
+        return fetchItems(); // Fetch updated list of items
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error deleting item:", error);
+      });
+  };
+
+  const showConfirmDialog = (id) => {
+    return Alert.alert(
+      "Are you sure?",
+      "Are you sure you want to remove this beautiful box?",
+      [
+        // The "Yes" button
+        {
+          text: "Yes",
+          onPress: () => {
+            deleteItem(id);
+          },
+        },
+        // The "No" button (without onPress)
+        {
+          text: "No",
+        },
+      ]
+    );
+  };
 
   useEffect(() => {
     if (selectedCategory) {
@@ -123,27 +152,25 @@ function List({ navigation }) {
         <Image source={{ uri: item.image }} style={styles.foodImage} />
         <Text style={styles.foodName}>{item.name}</Text>
         <Pressable
-          style={styles.favoriteContainer}
-          onPress={() => {
-            if (favorites.some((fav) => fav.id === item.id)) {
-              removeFromFavorites(item);
-            } else {
-              addToFavorites(item);
-            }
-          }}
+          style={styles.editIcon}
+          onPress={() =>
+            navigation.navigate("EditScreen", { fetchItems, itemId: item.id })}
         >
           <View>
-            {favorites.some((fav) => fav.name === item.name) ? (
-              <RedHeartIcon />
-            ) : (
-              <GrayHeartIcon />
-            )}
+            <EditIcon></EditIcon>
+          </View>
+        </Pressable>
+        <Pressable
+          style={styles.deleteButton}
+          onPress={() => showConfirmDialog(item.id)}
+        >
+          <View>
+            <DeleteIcon></DeleteIcon>
           </View>
         </Pressable>
       </View>
     </TouchableOpacity>
   );
-
   return (
     <View style={styles.container}>
       <TextInput
@@ -179,6 +206,11 @@ function List({ navigation }) {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
+      <Pressable onPress={() => navigation.navigate("AddScreen", { fetchItems })}>
+        <View style={styles.addButton}>
+          <AddIcon></AddIcon>
+        </View>
+      </Pressable>
     </View>
   );
 }
@@ -208,7 +240,7 @@ const styles = StyleSheet.create({
   },
   foodImage: {
     width: 150,
-    height: 150,
+    height: 200,
     marginRight: 16,
   },
   foodName: {
@@ -219,6 +251,24 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
   },
+  deleteButton: {
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    padding: 10,
+    borderRadius: 5,
+  },
+  addButton: {
+    marginLeft: 345,
+    marginTop: 20,
+    marginBottom: 12,
+  },
+  editIcon: {
+    position: "absolute",
+    top: 10,
+    right: 0,
+    padding: 10,
+    borderRadius: 5,
+  }
 });
-
-export default List;
+export default AdminPage;
