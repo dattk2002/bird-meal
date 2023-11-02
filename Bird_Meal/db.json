@@ -4,37 +4,46 @@
       "id": 1,
       "username": "tiepem",
       "password": "123",
-      "role": false
+      "role": false,
+      "favorite": [
+        1,
+        2
+      ]
     },
     {
       "id": 2,
       "username": "phuonganh",
       "password": "anh",
-      "role": false
+      "role": false,
+      "favorite": []
     },
     {
       "username": "tuyet",
       "password": "123",
       "id": 3,
-      "role": false
+      "role": false,
+      "favorite": []
     },
     {
       "username": "pttaer",
       "password": "123",
       "id": 4,
-      "role": false
+      "role": false,
+      "favorite": []
     },
     {
       "username": "kdat",
       "password": "123",
       "id": 5,
-      "role": false
+      "role": false,
+      "favorite": []
     },
     {
       "username": "admin",
       "password": "123",
       "id": 6,
-      "role": true
+      "role": true,
+      "favorite": []
     }
   ],
   "foods": [

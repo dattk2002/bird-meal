@@ -38,10 +38,11 @@ function List({ navigation }) {
     React.useCallback(() => {
       const loadFavorites = async () => {
         try {
-          const storedFavorites = await AsyncStorage.getItem("favorite");
-          if (storedFavorites !== null) {
-            setFavorites(JSON.parse(storedFavorites));
+          const storedUser = await AsyncStorage.getItem('user');
+          if (storedUser !== null) {
+            setFavorites(JSON.parse(storedUser).favorite);
           }
+
         } catch (error) {
           console.error("Error loading favorites:", error);
         }
@@ -52,28 +53,96 @@ function List({ navigation }) {
   );
 
   // Add a milk tea to favorites
-  const addToFavorites = (milkTea) => {
-    const updatedFavorites = [...favorites, milkTea];
-    setFavorites(updatedFavorites);
+  const addToFavorites = async (food) => {
+    try {
+      //const updatedFavorites = ;
+      //etFavorites(updatedFavorites);
 
-    // Save updated favorites to AsyncStorage
-    AsyncStorage.setItem("favorite", JSON.stringify(updatedFavorites));
+      // Save updated favorites to AsyncStorage
+      //AsyncStorage.setItem("favorite", JSON.stringify(updatedFavorites));
+
+      // Update favorites on the server
+      const updateFavorite = async () => {
+        try {
+          const storedUser = await AsyncStorage.getItem('user');
+
+          if (storedUser !== null) {
+            const parsedUser = JSON.parse(storedUser);
+            // Merge the new food id with the existing favorites
+            if (!parsedUser.favorite.includes(food.id)) {
+              const updatedFavorites = [...favorites, food.id];
+
+              await axios.patch(`http://:3000/users/${parsedUser.id}`, {
+                favorite: updatedFavorites
+              });
+
+              setFavorites(updatedFavorites);
+
+              const response = await axios.get("http://:3000/users", {
+                params: {
+                  username: parsedUser.username,
+                  password: parsedUser.password,
+                },
+              });
+
+              const user = response.data[0];
+
+              await AsyncStorage.setItem("user", JSON.stringify(user));
+            }
+          }
+        } catch (error) {
+          console.error('Error loading favorites:', error);
+        }
+      };
+
+      updateFavorite();
+
+      // Success message or further actions
+      console.log("Successfully added to favorites");
+    } catch (error) {
+      console.error('Error while adding to favorites:', error);
+      // Error handling
+    }
   };
 
   // Remove a milk tea from favorites
-  const removeFromFavorites = (milkTea) => {
-    const updatedFavorites = favorites.filter(
-      (item) => item.name !== milkTea.name
-    );
-    setFavorites(updatedFavorites);
+  const removeFromFavorites = async (food) => {
+    try {
+      const storedUser = await AsyncStorage.getItem('user');
 
-    // Save updated favorites to AsyncStorage
-    AsyncStorage.setItem("favorite", JSON.stringify(updatedFavorites));
+      if (storedUser !== null) {
+
+        const parsedUser = JSON.parse(storedUser);
+
+        if (parsedUser.favorite.includes(food.id)) {
+          const updatedFavorites = parsedUser.favorite.filter(item => item !== food.id);
+
+          await axios.patch(`http://:3000/users/${parsedUser.id}`, {
+            favorite: updatedFavorites
+          });
+
+          setFavorites(updatedFavorites);
+
+          const response = await axios.get("http://:3000/users", {
+            params: {
+              username: parsedUser.username,
+              password: parsedUser.password,
+            },
+          });
+
+          const user = response.data[0];
+
+          await AsyncStorage.setItem("user", JSON.stringify(user));
+        }
+      }
+    } catch (error) {
+      console.error('Error loading favorites:', error);
+    }
   };
 
   useEffect(() => {
     axios
-      .get("http://192.168.20.149:3000/foods")
+      .get("http://:3000/foods")
       .then((response) => {
         const data = response.data;
         setFoodData(data);
@@ -125,15 +194,15 @@ function List({ navigation }) {
         <Pressable
           style={styles.favoriteContainer}
           onPress={() => {
-            if (favorites.some((fav) => fav.id === item.id)) {
+            console.log(favorites);
+            if (favorites.includes(item.id)) {
               removeFromFavorites(item);
             } else {
               addToFavorites(item);
             }
-          }}
-        >
+          }}>
           <View>
-            {favorites.some((fav) => fav.name === item.name) ? (
+            {favorites.includes(item.id) ? (
               <RedHeartIcon />
             ) : (
               <GrayHeartIcon />
@@ -208,7 +277,7 @@ const styles = StyleSheet.create({
   },
   foodImage: {
     width: 150,
-    height: 150,
+    height: 200,
     marginRight: 16,
   },
   foodName: {

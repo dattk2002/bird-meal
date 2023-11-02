@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Login({ navigation }) {
   const [username, setUsername] = useState("");
@@ -32,6 +33,9 @@ function Login({ navigation }) {
 
       const user = response.data[0];
       if (user) {
+        // Save the logged-in user to AsyncStorage
+        await AsyncStorage.setItem("user", JSON.stringify(user));
+
         if (user.role === true) {
           navigation.navigate("AdminPage");
         } else {

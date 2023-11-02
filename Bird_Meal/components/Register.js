@@ -32,6 +32,8 @@ function Register({ navigation }) {
             const response = await axios.post('http://192.168.20.149:3000/users', {
                 username,
                 password,
+                role: false, // mặc định false khi là user
+                favorite: []
             });
 
             // Thành công, bạn có thể xử lý điều gì đó ở đây nếu cần.
