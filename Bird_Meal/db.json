@@ -39,7 +39,6 @@
   ],
   "foods": [
     {
-      "id": 1,
       "name": "Hạt hướng dương",
       "category": "Hạt",
       "image": "https://vn-live-02.slatic.net/p/21c626eba9a8ecd18a1e98691c5110e1.jpg",
@@ -53,7 +52,8 @@
           "birdName": "Cú Mèo",
           "birdImage": "https://img.meta.com.vn/Data/image/2022/04/20/chim-cu-meo-2.jpg"
         }
-      ]
+      ],
+      "id": 1
     },
     {
       "id": 2,

@@ -14,6 +14,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import FoodDetail from "./components/FoodDetail";
 import AboutUsScreen from "./components/About";
 import AddScreen from "./components/AddScreen";
+import EditScreen from "./components/EditScreen";
 
 function Home() {
   return (
@@ -59,9 +60,10 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="HomePage" component={Home} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="AdminPage" component={AdminPage} options={{title: "Admin Screen"}}/>
+        <Stack.Screen name="AdminPage" component={AdminPage} options={{ title: "Admin Screen" }} />
         <Stack.Screen name="FoodDetail" component={FoodDetail} />
         <Stack.Screen name="AddScreen" component={AddScreen} />
+        <Stack.Screen name="EditScreen" component={EditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

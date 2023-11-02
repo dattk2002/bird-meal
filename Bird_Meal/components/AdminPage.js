@@ -20,7 +20,6 @@ import AddScreen from './AddScreen';
 const RedHeartIcon = () => {
   return <FontAwesome name="heart" size={35} color="red" />;
 };
-
 const GrayHeartIcon = () => {
   return <FontAwesome name="heart" size={24} color="gray" />;
 };
@@ -30,8 +29,11 @@ const DeleteIcon = () => {
 const AddIcon = () => {
   return <FontAwesome name="plus" size={48} color="blue" />;
 };
+const EditIcon = () => {
+  return <FontAwesome name="edit" size={36} color="blue" />;
+};
 
-export { RedHeartIcon, GrayHeartIcon, DeleteIcon, AddIcon };
+export { RedHeartIcon, GrayHeartIcon, DeleteIcon, AddIcon, EditIcon };
 
 function AdminPage({ navigation }) {
   const [foodData, setFoodData] = useState([]);
@@ -79,7 +81,7 @@ function AdminPage({ navigation }) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       });
   };
-  
+
 
   const deleteItem = (id) => {
     axios
@@ -113,10 +115,6 @@ function AdminPage({ navigation }) {
         },
       ]
     );
-  };
-
-  const addPopup = () => {
-    return Alert.alert();
   };
 
   useEffect(() => {
@@ -153,6 +151,15 @@ function AdminPage({ navigation }) {
       <View style={styles.foodItem}>
         <Image source={{ uri: item.image }} style={styles.foodImage} />
         <Text style={styles.foodName}>{item.name}</Text>
+        <Pressable
+          style={styles.editIcon}
+          onPress={() =>
+            navigation.navigate("EditScreen", { fetchItems, itemId: item.id })}
+        >
+          <View>
+            <EditIcon></EditIcon>
+          </View>
+        </Pressable>
         <Pressable
           style={styles.deleteButton}
           onPress={() => showConfirmDialog(item.id)}
@@ -233,7 +240,7 @@ const styles = StyleSheet.create({
   },
   foodImage: {
     width: 150,
-    height: 150,
+    height: 200,
     marginRight: 16,
   },
   foodName: {
@@ -252,9 +259,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   addButton: {
-    marginLeft: 350,
+    marginLeft: 345,
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 12,
   },
+  editIcon: {
+    position: "absolute",
+    top: 10,
+    right: 0,
+    padding: 10,
+    borderRadius: 5,
+  }
 });
 export default AdminPage;
