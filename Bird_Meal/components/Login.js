@@ -22,7 +22,7 @@ function Login({ navigation }) {
       return;
     }
     try {
-      const response = await axios.get("http://192.168.20.149:3000/users", {
+      const response = await axios.get("http://192.168.1.89:3000/users", {
         params: {
           username,
           password,

@@ -65,7 +65,7 @@ function AdminPage({ navigation }) {
 
   const fetchItems = () => {
     axios
-      .get("http://192.168.20.149:3000/foods")
+      .get("http://192.168.1.89:3000/foods")
       .then((response) => {
         const data = response.data;
         setFoodData(data);
@@ -83,7 +83,7 @@ function AdminPage({ navigation }) {
 
   const deleteItem = (id) => {
     axios
-      .delete(`http://192.168.20.149:3000/foods/${id}`)
+      .delete(`http://192.168.1.89/foods/${id}`)
       .then((response) => {
         // Handle successful deletion
         console.log("Item deleted successfully id :", id);

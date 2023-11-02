@@ -6,7 +6,7 @@ import {
   Button,
   Picker,
   SafeAreaView,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 import axios from "axios";
 
@@ -32,7 +32,7 @@ function AddScreen({ route, navigation }) {
 
     // Send the form data to your server using axios.post
     axios
-      .post("http://192.168.20.149:3000/foods", formData)
+      .post("http://192.168.1.89:3000/foods", formData)
       .then((response) => {
         console.log("Form data submitted successfully:", response.data);
         // Optionally, you can reset the form fields after successful submission
@@ -139,36 +139,36 @@ function AddScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 16,
-      backgroundColor: 'white',
-      marginTop: 48
-    },
-    inputContainer: {
-      flex: 1,
-    },
-    label: {
-      fontSize: 16,
-      marginTop: 10,
-    },
-    input: {
-      borderColor: 'gray',
-      borderWidth: 1,
-      padding: 10,
-      fontSize: 16,
-      borderRadius: 5,
-      marginVertical: 5,
-    },
-    multilineInput: {
-      height: 100,
-      textAlignVertical: 'top',
-    },
-    suitableForItem: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginVertical: 5,
-    },
-  });
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: "white",
+    marginTop: 48,
+  },
+  inputContainer: {
+    flex: 1,
+  },
+  label: {
+    fontSize: 16,
+    marginTop: 10,
+  },
+  input: {
+    borderColor: "gray",
+    borderWidth: 1,
+    padding: 10,
+    fontSize: 16,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  multilineInput: {
+    height: 100,
+    textAlignVertical: "top",
+  },
+  suitableForItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 5,
+  },
+});
 export default AddScreen;
