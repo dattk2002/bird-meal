@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   TextInput,
   Button,
-  Picker,
   Pressable,
   SafeAreaView,
   StyleSheet,
@@ -13,8 +12,8 @@ import {
 } from "react-native";
 import axios from "axios";
 
-function AddScreen({ route, navigation }) {
-  const { fetchItems } = route.params;
+function EditScreen({ route, navigation }) {
+  const { fetchItems, itemId } = route.params;
 
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -23,6 +22,24 @@ function AddScreen({ route, navigation }) {
   const [suitableFor, setSuitableFor] = useState([
     { birdName: "", birdImage: "" },
   ]);
+
+  useEffect(() => {
+    // Fetch the item data using the provided ID
+    axios
+      .get(`http://192.168.1.108:3000/foods/${itemId}`)
+      .then((response) => {
+        const itemData = response.data;
+        // Update the state with the received data
+        setName(itemData.name);
+        setCategory(itemData.category);
+        setImage(itemData.image);
+        setDetail(itemData.detail);
+        setSuitableFor(itemData.suitableFor);
+      })
+      .catch((error) => {
+        console.error("Error fetching item data:", error);
+      });
+  }, [itemId]);
 
   const handleFormSubmit = () => {
     const formData = {
@@ -35,7 +52,7 @@ function AddScreen({ route, navigation }) {
 
     // Send the form data to your server using axios.post
     axios
-      .post("http://192.168.1.89:3000/foods", formData)
+      .put(`http://:3000/foods/${itemId}`, formData)
       .then((response) => {
         console.log("Form data submitted successfully:", response.data);
         // Optionally, you can reset the form fields after successful submission
@@ -51,8 +68,8 @@ function AddScreen({ route, navigation }) {
         console.error("Error submitting form data:", error);
       });
   };
+
   const addSuitableFor = () => {
-    // Add a new empty bird entry to suitableFor array
     setSuitableFor([...suitableFor, { birdName: "", birdImage: "" }]);
   };
 
@@ -78,7 +95,7 @@ function AddScreen({ route, navigation }) {
   const showConfirmDialog = (id) => {
     return Alert.alert(
       "Thông báo?",
-      "Bạn muốn thêm loại thức ăn này?",
+      "Bạn chắc chắn muốn sửa thông tin của thức ăn này?",
       [
         // The "Yes" button
         {
@@ -171,13 +188,12 @@ function AddScreen({ route, navigation }) {
               !category ||
               !image ||
               !detail ||
-              suitableFor.length < 1 ||
               suitableFor.some((bird) => !bird.birdName || !bird.birdImage)
             }
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }
 
@@ -214,10 +230,9 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   suitableForItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'left',
     marginVertical: 5,
   },
 });
-export default AddScreen;
+export default EditScreen;
