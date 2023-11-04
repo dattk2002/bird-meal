@@ -65,9 +65,32 @@ function AdminPage({ navigation }) {
     fetchItems();
   }, []);
 
+  const warning = () => {
+    Alert.alert(
+      'Logou',
+      'Do you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          onPress: () => {
+            navigation.navigate("Login");
+          },
+        },
+      ]
+    );
+  };
+
+  const handleLogout = () => {
+    warning()
+  }
+
   const fetchItems = () => {
     axios
-      .get("http://192.168.20.149:3000/foods")
+      .get("http://192.168.1.102:3000/foods")
       .then((response) => {
         const data = response.data;
         setFoodData(data);
@@ -85,7 +108,7 @@ function AdminPage({ navigation }) {
 
   const deleteItem = (id) => {
     axios
-      .delete(`http://192.168.20.149:3000/foods/${id}`)
+      .delete(`http://192.168.1.102:3000/foods/${id}`)
       .then((response) => {
         // Handle successful deletion
         console.log("Item deleted successfully id :", id);
@@ -211,6 +234,9 @@ function AdminPage({ navigation }) {
           <AddIcon></AddIcon>
         </View>
       </Pressable>
+      <Pressable style={styles.button} onPress={() => handleLogout()}>
+        <Text style={styles.buttonText}>Logout</Text>
+      </Pressable>
     </View>
   );
 }
@@ -269,6 +295,21 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 10,
     borderRadius: 5,
+  },
+  button: {
+    position: "absolute",
+    backgroundColor: "red",
+    marginLeft: 12,
+    marginRight: 6,
+    padding: 10,
+    bottom: 16,
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   }
 });
 export default AdminPage;
