@@ -214,9 +214,8 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   suitableForItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'left',
     marginVertical: 5,
   },
 });

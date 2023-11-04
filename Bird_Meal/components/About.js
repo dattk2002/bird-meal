@@ -1,21 +1,50 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Pressable, Alert } from 'react-native';
 
-const AboutUsScreen = () => {
+function AboutUsScreen({ navigation }) {
+
+    const clearAllFavorites = () => {
+        Alert.alert(
+            'Logou',
+            'Do you want to logout?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Logout',
+                    onPress: () => {
+                        navigation.navigate("Login");
+                    },
+                },
+            ]
+        );
+    };
+
+    const handleLogout = () => {
+        clearAllFavorites()
+    }
+
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../image/us.jpg')} resizeMode="cover" style={styles.image}>
                 <Text style={styles.title}>About Us</Text>
                 <Text style={styles.description}>
-                    Welcome to our app! This is a brief description of our app or organization.
-                    You can add more details about your team, mission, or any other relevant information here.
+                    Welcome to our revolutionary bird food managing app! With a passion for avian companionship and a deep understanding of the importance of nutritious diets for our feathered friends, we have created a comprehensive solution to simplify and enhance the way you care for your birds.
                 </Text>
+                <Text style={styles.description}>
+                    Thank you for downloading our app!
+                </Text>
+                <Pressable style={styles.button} onPress={() => handleLogout()}>
+                    <Text style={styles.buttonText}>Logout</Text>
+                </Pressable>
             </ImageBackground>
 
 
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -33,11 +62,28 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     description: {
-        fontSize: 16,
+        fontSize: 18,
+        fontWeight: 'bold',
         textAlign: 'center',
         marginVertical: 10,
-        color: 'red'
+        color: 'white',
+        marginHorizontal: 6,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
+    button: {
+        backgroundColor: "red",
+        marginLeft: 300,
+        marginRight: 6,
+        padding: 10,
+        top: 348,
+        alignItems: "center",
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "bold",
+    }
 });
 
 export default AboutUsScreen;
